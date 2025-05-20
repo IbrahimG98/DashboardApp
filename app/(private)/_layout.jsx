@@ -1,7 +1,14 @@
 import { router, Stack } from "expo-router";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "../../store";
-import { selectUserToken } from "../../features/dashboardSlice";
+import {
+  retrieveAvailableSurveys,
+  retrieveDashboard,
+  retrieveRewardHistory,
+  retrieveRewards,
+  retrieveSurveyHistory,
+  selectUserToken,
+} from "../../features/dashboardSlice";
 import { useEffect } from "react";
 import { isTokenValid } from "../../utils/utils";
 
@@ -13,7 +20,7 @@ export default function PrivateLayout() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!userToken || !isTokenValid(userToken)) {
-      router.navigate("home"); // route to index by "/"
+      router.navigate("/"); // route to index by "/"
     }
     if (userToken) {
       dispatch(retrieveDashboard());

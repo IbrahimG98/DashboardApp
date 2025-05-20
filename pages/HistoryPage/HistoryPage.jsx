@@ -21,38 +21,6 @@ import { Text } from "react-native";
 
 const HistoryPage = () => {
   let rewardHistoryData = useSelector(selectSurveyHistory);
-  // rewardHistoryData = [
-  //   {
-  //     surveyTopic: "A test survey 150",
-  //     surveyLenghtOfInterview: 100,
-  //     surveyIncentive: "150",
-  //     surveyIncentiveCurrency: "USD",
-  //     surveyEndDate: "2024-01-06",
-  //     surveyLink:
-  //       "https://q-one.tech/panel-manager/projects/pages/invite?projectId=659813676b2b95a59aac642c&memberId=BENAr6oD0NdV",
-  //     surveyStatus: "Terminated",
-  //   },
-  //   {
-  //     surveyTopic: "A test survey 1",
-  //     surveyLenghtOfInterview: 5,
-  //     surveyIncentive: "1",
-  //     surveyIncentiveCurrency: "USD",
-  //     surveyEndDate: "2024-01-24",
-  //     surveyLink:
-  //       "https://q-one.tech/panel-manager/projects/pages/invite?projectId=65a7dab20544eb13cbb64d5b&memberId=WLvOdHxxXbee",
-  //     surveyStatus: "Invited - Not Started",
-  //   },
-  //   {
-  //     surveyTopic: "A test survey 150",
-  //     surveyLenghtOfInterview: 100,
-  //     surveyIncentive: "150",
-  //     surveyIncentiveCurrency: "USD",
-  //     surveyEndDate: "2024-01-06",
-  //     surveyLink:
-  //       "https://q-one.tech/panel-manager/projects/pages/invite?projectId=659813676b2b95a59aac642c&memberId=BENAr6oD0NdV",
-  //     surveyStatus: "Terminated",
-  //   },
-  // ];
 
   const numberOfDoneSurveys = rewardHistoryData?.length || 0;
   const mobileHistoryItems = rewardHistoryData.map((item, index) => (

@@ -25,52 +25,8 @@ import { Text, View } from "react-native";
 
 const HomePage = () => {
   let availableSurveys = useSelector(selectAvailableSurveys);
-  // const dataJson = {
-  //   surveys: [
-  //     {
-  //       surveyTopic: "S1",
-  //       surveyLenghtOfInterview: 15,
-  //       surveyIncentive: "10",
-  //       surveyIncentiveCurrency: "USD",
-  //       surveyEndDate: "2024-01-17",
-  //       surveyLink: "https://publicwisdomaccount.com/",
-  //     },
-  //     {
-  //       surveyTopic: "Sample Survey A",
-  //       surveyLenghtOfInterview: 100,
-  //       surveyIncentive: "150",
-  //       surveyIncentiveCurrency: "USD",
-  //       surveyEndDate: "2024-01-06",
-  //       surveyLink: "https://publicwisdomaccount.com/",
-  //     },
-  //     {
-  //       surveyTopic: "Product Feedback",
-  //       surveyLenghtOfInterview: 30,
-  //       surveyIncentive: "10",
-  //       surveyIncentiveCurrency: "USD",
-  //       surveyEndDate: "2024-01-28",
-  //       surveyLink: "https://publicwisdomaccount.com/",
-  //     },
-  //     {
-  //       surveyTopic: "Platform Demo",
-  //       surveyLenghtOfInterview: 15,
-  //       surveyIncentive: "1",
-  //       surveyIncentiveCurrency: "USD",
-  //       surveyEndDate: "2024-01-31",
-  //       surveyLink: "https://publicwisdomaccount.com/",
-  //     },
-  //     {
-  //       surveyTopic: "Training Module Survey",
-  //       surveyLenghtOfInterview: 6,
-  //       surveyIncentive: "20",
-  //       surveyIncentiveCurrency: "USD",
-  //       surveyEndDate: "2024-02-09",
-  //       surveyLink: "https://publicwisdomaccount.com/",
-  //     },
-  //   ],
-  // };
 
-  const carouselItems = availableSurveys?.surveys?.map((item, idx) => (
+  const carouselItems = availableSurveys?.map((item, idx) => (
     <Card item={item} key={idx} />
   ));
 
@@ -89,15 +45,13 @@ const HomePage = () => {
       .reduce((sum, item) => sum + item.amount, 0);
   }, [projectsData]);
 
-  console.log("111", user);
-
   return (
     <WrapperMain>
       <ContainerColumn>
         <WelcomeSection>
           {carouselItems?.length > 0 ? (
             <SectionTitle>
-              Hello {user.firstName || "TestUser"}!
+              Hello {user.firstName || "user"}!
               <InfoRow>
                 <InfoLabel>Total rewards claimed:</InfoLabel>
                 <InfoValue>{`$${totalAmountClaimed}`}</InfoValue>
