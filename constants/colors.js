@@ -1,0 +1,15 @@
+export const theme = {
+  mainTheme: "#1a39bd",
+  subTheme: "#FF7F7F",
+  white: "#FFFFFF",
+  black: "#000000",
+  footerColor: "#F0F0F0",
+  lightGray: "#F5F5F5",
+  gray: "#D4D4D4",
+  claimColor: "#537B2F",
+  whiteSmoke: "F5F5F5",
+  sectionTitle: "#1B1B1B",
+  disclaimerText: "#2C353A",
+  backgroundColor: "#F8F8F8",
+  tableHeader: "#EDF0FF",
+};
