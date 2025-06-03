@@ -9,7 +9,9 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "5",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.qonetech"
     },
     "android": {
       "adaptiveIcon": {
