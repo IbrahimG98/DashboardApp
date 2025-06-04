@@ -311,6 +311,17 @@ export const retrieveSurveyHistory = createAsyncThunk(
   }
 );
 
+export const updatePushToken = createAppAsyncThunk(
+  "dashboard/updatePushToken",
+  async (token) => {
+    try {
+      await DashboardServices.updatePushToken(token);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+);
+
 const initialState = {
   user: {
     firstName: "",

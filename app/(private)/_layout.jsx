@@ -8,11 +8,21 @@ import {
   retrieveRewards,
   retrieveSurveyHistory,
   selectUserToken,
+  updatePushToken,
 } from "../../features/dashboardSlice";
 import { useEffect } from "react";
 import { isTokenValid } from "../../utils/utils";
+import * as Notifications from "expo-notifications";
 
-// import messaging from "@react-native-firebase/messaging";
+import messaging from "@react-native-firebase/messaging";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function PrivateLayout() {
   //check if valid, yes continue no redirect to login
@@ -31,89 +41,84 @@ export default function PrivateLayout() {
     }
   }, [dispatch, userToken]);
   // fetch push token and send to BE
-  // useEffect(() => {
-  //   if (!validToken) return;
-  //   requestUserPermission().then((granted) => {
-  //     if (granted) {
-  //       dispatch(updateNotificationEnabledStatus(!!granted));
-  //       messaging()
-  //         .getToken()
-  //         .then((token) => {
-  //           console.log("PUSH TOKEN", token);
-  //           // copyToClipboard(token)
-  //           // dispatch(updatePushToken(token)); //save push token route on BE
-  //         });
-  //     }
-  //   });
+  useEffect(() => {
+    if (!validToken) return;
+    messaging()
+      .getToken()
+      .then((token) => {
+        console.log("PUSH TOKEN", token);
+        // copyToClipboard(token)
+        dispatch(updatePushToken(token)); //save push token route on BE
+      });
 
-  //   // Handle user opening the app from a notification (when the app is in the background)
-  //   messaging().onNotificationOpenedApp((remoteMessage) => {
-  //     console.log(
-  //       "Notification caused app to open from background state:",
-  //       remoteMessage
-  //     );
-  //     if (remoteMessage) {
-  //       // alert(
-  //       //   "Notification caused app to open from background state: " +
-  //       //     remoteMessage?.notification?.title
-  //       // )
-  //     }
-  //   });
+    // Handle user opening the app from a notification (when the app is in the background)
+    messaging().onNotificationOpenedApp((remoteMessage) => {
+      console.log(
+        "Notification caused app to open from background state:",
+        remoteMessage
+      );
+      if (remoteMessage) {
+        // alert(
+        //   "Notification caused app to open from background state: " +
+        //     remoteMessage?.notification?.title
+        // )
+      }
+    });
 
-  //   // Handle push notifications when the app is in the foreground
-  //   const unsubscribe = messaging().onMessage((remoteMessage) => {
-  //     console.log(
-  //       "Message handled in the foreground!",
-  //       remoteMessage,
-  //       pushNotificationsEnabled
-  //     );
+    // Handle push notifications when the app is in the foreground
+    const unsubscribe = messaging().onMessage((remoteMessage) => {
+      console.log(
+        "Message handled in the foreground!",
+        remoteMessage,
+        pushNotificationsEnabled
+      );
 
-  //     if (pushNotificationsEnabled && remoteMessage?.notification?.title) {
-  //       // alert(
-  //       //   "Message handled in the foreground!: " +
-  //       //     remoteMessage?.notification?.title
-  //       // )
-  //       Notifications.scheduleNotificationAsync({
-  //         content: {
-  //           title: remoteMessage.notification.title,
-  //           body: remoteMessage.notification.body,
-  //         },
-  //         trigger: null,
-  //       });
-  //     }
-  //   });
+      if (pushNotificationsEnabled && remoteMessage?.notification?.title) {
+        // alert(
+        //   "Message handled in the foreground!: " +
+        //     remoteMessage?.notification?.title
+        // )
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: remoteMessage.notification.title,
+            body: remoteMessage.notification.body,
+          },
+          trigger: null,
+        });
+      }
+    });
 
-  //   // NOT SURE IF NEEDED. KEEP IT COMMENTED FOR NOW
-  //   // messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  //   //   console.log("Message handled in the background!", remoteMessage)
-  //   //   if (remoteMessage) {
-  //   //     alert(
-  //   //       "Message handled in the background!: " +
-  //   //         remoteMessage?.notification?.title
-  //   //     )
-  //   //   }
-  //   // })
+    // NOT SURE IF NEEDED. KEEP IT COMMENTED FOR NOW
+    // messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    //   console.log("Message handled in the background!", remoteMessage)
+    //   if (remoteMessage) {
+    //     alert(
+    //       "Message handled in the background!: " +
+    //         remoteMessage?.notification?.title
+    //     )
+    //   }
+    // })
 
-  //   // Check if the app was opened from a notification (when the app was completely quit)
-  //   messaging()
-  //     .getInitialNotification()
-  //     .then((remoteMessage) => {
-  //       console.log(
-  //         "Notification caused app to open from quit state:",
-  //         remoteMessage
-  //       );
-  //       if (remoteMessage) {
-  //         // alert(
-  //         //   "Notification caused app to open from quit state: " +
-  //         //     remoteMessage?.notification?.title
-  //         // )
-  //       }
-  //     });
+    // Check if the app was opened from a notification (when the app was completely quit)
+    messaging()
+      .getInitialNotification()
+      .then((remoteMessage) => {
+        console.log(
+          "Notification caused app to open from quit state:",
+          remoteMessage
+        );
+        if (remoteMessage) {
+          // alert(
+          //   "Notification caused app to open from quit state: " +
+          //     remoteMessage?.notification?.title
+          // )
+        }
+      });
 
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [pushNotificationsEnabled, validToken]);
+    return () => {
+      unsubscribe();
+    };
+  }, [pushNotificationsEnabled, validToken]);
   return (
     <Provider store={store}>
       <Stack

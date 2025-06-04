@@ -62,6 +62,18 @@ const surveyHistory = async () => {
   });
 };
 
+const updatePushToken = async (token) => {
+  return await fetch(
+    `https://q-one.tech/api/panel-members/dashboard/token`,
+
+    {
+      method: "POST",
+      headers: await headers({ login: false }),
+      body: JSON.stringify({ token }),
+    }
+  );
+};
+
 const DashboardServices = {
   about,
   availableSurveys,
@@ -70,6 +82,7 @@ const DashboardServices = {
   rewardsClaim,
   login,
   surveyHistory,
+  updatePushToken,
 };
 
 export default DashboardServices;
