@@ -2,7 +2,6 @@ import { router, Stack } from "expo-router";
 import { Provider, useDispatch } from "react-redux";
 import store from "../store";
 import { setRefreshToken, setToken } from "../features/dashboardSlice";
-import * as SplashScreen from "expo-splash-screen";
 import { getData, isTokenValid } from "../utils/utils";
 import { useEffect, useState } from "react";
 import { StatusBar } from "react-native";
