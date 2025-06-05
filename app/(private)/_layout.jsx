@@ -44,13 +44,10 @@ export default function PrivateLayout() {
   useEffect(() => {
     if (!userToken) return;
     messaging()
-      .registerDeviceForRemoteMessages() // ✅ required first
-      .then(() => {
-        return messaging().getToken();
-      })
+      .getToken()
       .then((token) => {
         console.log("PUSH TOKEN", token);
-        dispatch(updatePushToken(token)); // Save token to backend
+        dispatch(updatePushToken(token));
       })
       .catch((error) => {
         console.log("GET TOKEN ERROR", error);
