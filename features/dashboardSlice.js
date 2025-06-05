@@ -311,7 +311,7 @@ export const retrieveSurveyHistory = createAsyncThunk(
   }
 );
 
-export const updatePushToken = createAppAsyncThunk(
+export const updatePushToken = createAsyncThunk(
   "dashboard/updatePushToken",
   async (token) => {
     try {

@@ -42,13 +42,18 @@ export default function PrivateLayout() {
   }, [dispatch, userToken]);
   // fetch push token and send to BE
   useEffect(() => {
-    if (!validToken) return;
+    if (!userToken) return;
     messaging()
-      .getToken()
+      .registerDeviceForRemoteMessages() // ✅ required first
+      .then(() => {
+        return messaging().getToken();
+      })
       .then((token) => {
         console.log("PUSH TOKEN", token);
-        // copyToClipboard(token)
-        dispatch(updatePushToken(token)); //save push token route on BE
+        dispatch(updatePushToken(token)); // Save token to backend
+      })
+      .catch((error) => {
+        console.log("GET TOKEN ERROR", error);
       });
 
     // Handle user opening the app from a notification (when the app is in the background)
@@ -67,13 +72,9 @@ export default function PrivateLayout() {
 
     // Handle push notifications when the app is in the foreground
     const unsubscribe = messaging().onMessage((remoteMessage) => {
-      console.log(
-        "Message handled in the foreground!",
-        remoteMessage,
-        pushNotificationsEnabled
-      );
+      console.log("Message handled in the foreground!", remoteMessage);
 
-      if (pushNotificationsEnabled && remoteMessage?.notification?.title) {
+      if (remoteMessage?.notification?.title) {
         // alert(
         //   "Message handled in the foreground!: " +
         //     remoteMessage?.notification?.title
@@ -118,7 +119,7 @@ export default function PrivateLayout() {
     return () => {
       unsubscribe();
     };
-  }, [pushNotificationsEnabled, validToken]);
+  }, [userToken]);
   return (
     <Provider store={store}>
       <Stack
