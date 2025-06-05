@@ -15,6 +15,7 @@ import { isTokenValid } from "../../utils/utils";
 import * as Notifications from "expo-notifications";
 
 import messaging from "@react-native-firebase/messaging";
+import { Platform } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -27,6 +28,8 @@ Notifications.setNotificationHandler({
 export default function PrivateLayout() {
   //check if valid, yes continue no redirect to login
   const userToken = useSelector(selectUserToken);
+  const authStatus = messaging().requestPermission();
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (!userToken || !isTokenValid(userToken)) {
@@ -43,15 +46,29 @@ export default function PrivateLayout() {
   // fetch push token and send to BE
   useEffect(() => {
     if (!userToken) return;
-    messaging()
-      .getToken()
-      .then((token) => {
-        console.log("PUSH TOKEN", token);
-        dispatch(updatePushToken(token));
-      })
-      .catch((error) => {
-        console.log("GET TOKEN ERROR", error);
-      });
+    if (Platform.OS === "ios") {
+      messaging()
+        .registerDeviceForRemoteMessages()
+        .then(() => messaging().getToken())
+        .then((token) => {
+          console.log("PUSH TOKEN", token);
+          dispatch(updatePushToken(token));
+        })
+        .catch((error) => {
+          console.log("GET TOKEN ERROR ios", error);
+        });
+    } else {
+      // Android or other platforms
+      messaging()
+        .getToken()
+        .then((token) => {
+          console.log("PUSH TOKEN", token);
+          dispatch(updatePushToken(token));
+        })
+        .catch((error) => {
+          console.log("GET TOKEN ERROR", error);
+        });
+    }
 
     // Handle user opening the app from a notification (when the app is in the background)
     messaging().onNotificationOpenedApp((remoteMessage) => {

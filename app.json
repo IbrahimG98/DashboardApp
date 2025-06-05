@@ -14,7 +14,7 @@
       "bundleIdentifier": "com.qonetech",
       "googleServicesFile": "./GoogleService-Info.plist",
       "entitlements": {
-        "aps-environment": "production"
+        "aps-environment": "development"
       }
     },
     "android": {
