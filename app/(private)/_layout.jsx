@@ -51,7 +51,7 @@ export default function PrivateLayout() {
         .registerDeviceForRemoteMessages()
         .then(() => messaging().getToken())
         .then((token) => {
-          console.log("PUSH TOKEN", token);
+          console.log("PUSH TOKEN ios", token);
           dispatch(updatePushToken(token));
         })
         .catch((error) => {

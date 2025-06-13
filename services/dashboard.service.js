@@ -64,7 +64,7 @@ const surveyHistory = async () => {
 
 const updatePushToken = async (token) => {
   return await fetch(
-    `https://q-one.tech/api/panel-members/dashboard/token`,
+    `https://surveys.publicwisdomaccount.com/api/panel-members/dashboard/token`,
 
     {
       method: "POST",
