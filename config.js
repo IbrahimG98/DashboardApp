@@ -1,4 +1,3 @@
-//variables in env files need to be prefixed as VITE
 const API_URL = "https://surveys.publicwisdomaccount.com/api";
 const IS_LOCAL = "is_not_local";
 const COMPANY_TOKEN =

@@ -23,7 +23,8 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.qonetech",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 6
     },
     "web": {
       "bundler": "metro",
