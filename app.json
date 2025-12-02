@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "buildNumber": "13",
+      "buildNumber": "14",
       "supportsTablet": false,
       "bundleIdentifier": "com.qonetech",
       "googleServicesFile": "./GoogleService-Info.plist",
@@ -24,7 +24,7 @@
       },
       "package": "com.qonetech",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 8
+      "versionCode": 9
     },
     "web": {
       "bundler": "metro",

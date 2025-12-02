@@ -99,14 +99,6 @@ const HomePage = () => {
             </DisclaimerText>
           </ImageContainer>
         </WelcomeSection>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "red",
-          }}
-        ></View>
 
         {carouselItems?.length > 0 && (
           // <WelcomeSection>

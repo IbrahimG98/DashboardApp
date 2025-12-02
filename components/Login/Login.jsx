@@ -37,12 +37,11 @@ const Login = () => {
       if (res.payload?.requestSuccessfull) {
         storeData("accessToken", res?.payload?.data?.token);
         storeData("refreshToken", res?.payload?.data?.refreshToken || "");
-        router.navigate("home");
+        router.replace("/(private)/home");
       } else {
         alert(res.payload?.data?.message);
       }
     });
-    // router.navigate("home");
     console.log("loginnn", email, password);
   };
   return (
