@@ -35,6 +35,9 @@
       [
         "expo-build-properties",
         {
+          "android": {
+            "enableHermes": true
+          },
           "ios": {
             "useFrameworks": "static"
           }
