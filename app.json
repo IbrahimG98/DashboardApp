@@ -24,7 +24,7 @@
       },
       "package": "com.qonetech",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 9
+      "versionCode": 11
     },
     "web": {
       "bundler": "metro",
